@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 from flask_pymongo import PyMongo
-import numpy as np
 import scraping
 
 app = Flask(__name__)
