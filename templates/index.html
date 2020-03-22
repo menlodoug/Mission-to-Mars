@@ -38,7 +38,21 @@
         </div>
         <!-- Mars Facts -->
         <div class="col-md-4">
-            <h3>Mars-Earth Comparison</h3>
+            <h3>Mars Facts</h3>
             {{mars.facts | safe}}
         </div>
+      </div>
+      <!-- Mars Hemispheres -->
+      <div class="row" id="mars-hemispheres"
+      ><div class="row justify-content-md"></div>
+        <div class="col-md-8">
+        <h2>Mars Hemispheres</h2>
+        <img src="{{ mars.hemispheres[0] }}" class="img-responsive" alt="Responsive image">
+        {{mars.hemispheres[1]}}
+        <img src="{{ mars.hemispheres[2] }}" class="img-responsive" alt="Responsive image">
+        {{mars.hemispheres[3]}}
+        <img src="{{ mars.hemispheres[4] }}" class="img-responsive" alt="Responsive image">
+        {{mars.hemispheres[5]}}
+        <img src="{{ mars.hemispheres[6] }}" class="img-responsive" alt="Responsive image">
+        {{mars.hemispheres[7]}}
     </div>

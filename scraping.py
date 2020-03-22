@@ -13,7 +13,9 @@ def scrape_all():
       "news_paragraph": news_paragraph,
       "featured_image": featured_image(browser),
       "facts": mars_facts(),
+      "hemispheres": mars_hemispheres(browser),
       "last_modified": dt.datetime.now()}
+   browser.quit()
    return data
    
 def mars_news(browser):
@@ -74,7 +76,7 @@ def mars_facts():
     # Add try/except for error handling
     try:
         # Use 'read_html' to scrape the facts table into a dataframe
-        df = pd.read_html('http://space-facts.com/mars/')[0]
+        df = pd.read_html('http://space-facts.com/mars/')[1]
 
     except BaseException:
         return None
@@ -83,6 +85,58 @@ def mars_facts():
     df.set_index('Description', inplace=True)
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html()
+
+def mars_hemispheres(browser):
+    # Add try/except for error handling
+    # Visit URL
+    url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.visit(url)
+    
+    # Convert the browser html to a soup object and then quit the browser
+    html = browser.html
+    hemi_soup = BeautifulSoup(html, 'html.parser')
+    list_link = []
+    for link in hemi_soup.select('div.description a[href]'):
+        ("https://astrogeology.usgs.gov{}".format(link['href']))
+        list_link.append(("https://astrogeology.usgs.gov{}".format(link['href'])))
+    
+    url = list_link[0]
+    browser.visit(url)
+    html = browser.html
+    cerberus_soup = BeautifulSoup(html, 'html.parser')
+    cerb_url_rel = cerberus_soup.select_one('img.wide-image').get("src")
+    cerb_img_url = f'https://astrogeology.usgs.gov{cerb_url_rel}'
+    cerb_title = cerberus_soup.find('h2')
+    cerb_title.text
+
+    url = list_link[1]
+    browser.visit(url)
+    html = browser.html
+    schia_soup = BeautifulSoup(html, 'html.parser')
+    schia_url_rel = schia_soup.select_one('img.wide-image').get("src")
+    schia_img_url = f'https://astrogeology.usgs.gov{schia_url_rel}'
+    schia_title = schia_soup.find('h2')
+    schia_title.text
+
+    url = list_link[2]
+    browser.visit(url)
+    html = browser.html
+    syrtis_soup = BeautifulSoup(html, 'html.parser')
+    syrtis_url_rel = syrtis_soup.select_one('img.wide-image').get("src")
+    syrtis_img_url = f'https://astrogeology.usgs.gov{syrtis_url_rel}'
+    syrtis_title = syrtis_soup.find('h2')
+    syrtis_title.text
+
+    url = list_link[3]
+    browser.visit(url)
+    html = browser.html
+    valles_soup = BeautifulSoup(html, 'html.parser')
+    valles_url_rel = valles_soup.select_one('img.wide-image').get("src")
+    valles_img_url = f'https://astrogeology.usgs.gov{valles_url_rel}'
+    valles_title = valles_soup.find('h2')
+    valles_title.text
+
+    return cerb_img_url, cerb_title.text, schia_img_url, schia_title.text, syrtis_img_url, syrtis_title.text, valles_img_url, valles_title.text
 
 if __name__ == "__main__":
     # If running as script, print scraped data
