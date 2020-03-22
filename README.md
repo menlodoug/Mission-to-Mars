@@ -2,7 +2,7 @@
 
 Here is the screenshot of the portfolio requested in the challenge.
 
-![](D:\Bootcamp\Mission-to-Mars\portfolio.png)
+![](portfolio.png)
 
 
 
